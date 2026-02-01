@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Mozilla Firefox Installation Script for Automatic Deployment in AD via GPO.
+# Mozilla Firefox ESR Installation Script for Automatic Deployment in AD via GPO.
 # Add it via Computer Configuration > Policies > Windows Settings > Scripts.
 # Specify the desired language code as a script parameter. The default is en-US.
 # A list of available codes is available here:
@@ -58,7 +58,6 @@ if ($program) {
     return
 }
 
-
 # Check if the non-ESR version of package is installed. If it is, uninstall it.
 $program = Get-Package -Provider Programs -Name "Mozilla Firefox (*" -ErrorAction SilentlyContinue
 if ($program) {
@@ -75,7 +74,7 @@ curl.exe -sS -L --output $msiPath $url
 # Install the MSI package
 Write-Log "Installing $msiPath"
 if ($enableLogs -eq $true) {
-    $msiLogPath = Join-Path $logShare ($env:COMPUTERNAME + "_Mozilla_Firefox_Install_$(Get-Date -Format 'yyyyMMdd_HHmmss').log")
+    $msiLogPath = Join-Path $logShare ($env:COMPUTERNAME + "_Mozilla_Firefox_ESR_Install_$(Get-Date -Format 'yyyyMMdd_HHmmss').log")
     Start-Process msiexec.exe -ArgumentList "/i `"$msiPath`" /qn /norestart /L*v `"$msiLogPath`"" -Wait -NoNewWindow
 }
 else {
