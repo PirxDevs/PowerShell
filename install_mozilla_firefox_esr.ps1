@@ -61,7 +61,7 @@ if ($program) {
 # Check if the non-ESR version of package is installed. If it is, uninstall it.
 $program = Get-Package -Provider Programs -Name "Mozilla Firefox (*" -ErrorAction SilentlyContinue
 if ($program) {
-    Write-Log "Uninstalling non-ESR Google Chrome"
+    Write-Log "Uninstalling non-ESR Mozilla Firefox"
     $uninstallString = ([xml]$program.SwidTagText).SoftwareIdentity.Meta.UninstallString
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c", "$uninstallString", "/S" -Wait
 }
